@@ -10,13 +10,28 @@ class QuizQuestion extends Component {
                 </section>
                 <section className="buttons">
                     <ul>
-                        <li>
-                            <QuizQuestionButton button_text={this.props.quiz_question.answer_options[0]}/>
-                        </li>
+                        {this.props.quiz_question.answer_options.map((answer, index) => {
+                            const localAnswer = answer
+                            const localIndex = index
+                            return(
+                                    <QuizQuestionButton 
+                                        key={localIndex} 
+                                        button_text={localAnswer}
+                                        clickHandler={this.handleClick.bind(this)}
+                                        />
+                            )
+                        })}
+                        
                     </ul>
                 </section>
             </main>
         )
+    }
+
+    handleClick(buttonText) {
+        if (buttonText === this.props.quiz_question.answer) {
+            this.props.showNextQuestionHandler()
+        }
     }
 }
 
